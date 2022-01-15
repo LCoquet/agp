@@ -10,11 +10,6 @@ import bank4.jdbc.client.AbstractClient;
 
 public class ServiceReporter {
 	private static final String REPORT_FILE = "src/bank4/jdbc/container/ProblemReport.txt";
-	
-	public void test(JoinPoint joinPoint) {
-		System.out.println("noooo i am here.");
-	}
-	
 
 	public void nonServedClientEntry(JoinPoint joinPoint) {
 

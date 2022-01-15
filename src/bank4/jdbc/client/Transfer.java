@@ -17,7 +17,6 @@ public class Transfer extends AbstractOperation{
 	
 	@Override
 	public String execute(Account account) {
-		System.out.println("Execution en cours de transfert.\n" + "value : " + amount + "\n");
 		if(amount < account.getBalance()) {
 			account.setBalance(account.getBalance() - amount);
 			targetAccount.setBalance(targetAccount.getBalance() + amount);

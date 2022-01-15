@@ -73,7 +73,6 @@
 			expression="execution(* bank4.jdbc.simulation.StatisticManager.registerNonServedClient(..))" />
 		<aop:aspect id="serviceReporterAspect" ref="serviceReporter">
 			<aop:before method="nonServedClientEntry" pointcut-ref="servicePointcut" />
-			<aop:after method="test" pointcut-ref="servicePointcut" />
 		</aop:aspect>
 	</aop:config>
 	
@@ -81,7 +80,6 @@
 		<aop:pointcut id="operationPointcut"
 			expression="execution(* bank4.jdbc.client.AbstractClient.executeOperation(..))" />
 		<aop:aspect id="operationReporterAspect" ref="operationReporter">
-			<aop:before method="test" pointcut-ref="operationPointcut" />
 			<aop:after-returning method="treatedOperationEntry"
 				returning="result" pointcut-ref="operationPointcut" />
 		</aop:aspect>
