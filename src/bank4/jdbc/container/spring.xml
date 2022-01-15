@@ -79,7 +79,7 @@
 	
 	<aop:config>
 		<aop:pointcut id="operationPointcut"
-			expression="execution(* bank4.jdbc.simulation.StatisticManager.registerNonServedClient(..))" />
+			expression="execution(* bank4.jdbc.client.AbstractOperation.print(..))" />
 		<aop:aspect id="operationReporterAspect" ref="operationReporter">
 			<aop:before method="test" pointcut-ref="operationPointcut" />
 		</aop:aspect>
