@@ -1,7 +1,13 @@
 package bank4.jdbc.client;
 
-public class Account {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public class Account {
+	@Id
+	@GeneratedValue
 	private int number;
 	private float balance;
 	
