@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	xmlns:context="http://www.springframework.org/schema/context">
+
+	<bean id="simulation" class="bank4.jdbc.simulation.Simulation">
+		<property name="simulationEntry" ref="entry" />
+		<property name="statisticManager" ref="manager" />
+	</bean>
+	
+	<bean id="entry" class="bank4.jdbc.simulation.SimulationEntry">
+		<property name="cashierCount">
+			<value>3</value>
+		</property>
+		<property name="clientArrivalInterval">
+			<value>5</value>
+		</property>
+		<property name="clientPatienceTime">
+			<value>7</value>
+		</property>
+		<property name="maxServiceTime">
+			<value>20</value>
+		</property>
+		<property name="minServiceTime">
+			<value>10</value>
+		</property>
+		<property name="priorityClientRate">
+			<value>0.1</value>
+		</property>
+		<property name="simulationDuration">
+			<value>1000</value>
+		</property>
+	</bean>
+
+	<bean id="manager" class="bank4.jdbc.simulation.StatisticManager" />
+
+	<bean id="client" class="bank4.jdbc.client.AbstractClient" abstract="true" scope="prototype"/>
+
+	<bean id="operation" class="bank4.jdbc.client.AbstractOperation" abstract="true" scope="prototype" />
+
+	<bean id="vipConsultation" class="bank4.jdbc.client.VIPClient" parent="client">
+		<property name="operation" ref="consultation" />
+	</bean>
+	<bean id="vipTransfer" class="bank4.jdbc.client.VIPClient" parent="client">
+		<property name="operation" ref="transfer" />
+	</bean>
+	<bean id="vipWithdraw" class="bank4.jdbc.client.VIPClient" parent="client">
+		<property name="operation" ref="withdraw" />
+	</bean>
+
+	<bean id="normalConsultation" class="bank4.jdbc.client.Client" parent="client">
+		<property name="operation" ref="consultation" />
+	</bean>
+	<bean id="normalTransfer" class="bank4.jdbc.client.Client" parent="client">
+		<property name="operation" ref="transfer" />
+	</bean>
+	<bean id="normalWithdraw" class="bank4.jdbc.client.Client" parent="client">
+		<property name="operation" ref="withdraw" />
+	</bean>
+
+	<bean id="consultation" class="bank4.jdbc.client.Consultation" parent="operation" />
+	<bean id="transfer" class="bank4.jdbc.client.Transfer" parent="operation" />
+	<bean id="withdraw" class="bank4.jdbc.client.Withdraw" parent="operation" />
+
+	<aop:config>
+		<aop:pointcut id="servicePointcut"
+			expression="execution(* bank4.jdbc.simulation.StatisticManager.registerNonServedClient(..))" />
+		<aop:aspect id="serviceReporterAspect" ref="serviceReporter">
+			<aop:before method="nonServedClientEntry" pointcut-ref="servicePointcut" />
+		</aop:aspect>
+	</aop:config>
+	<bean id="serviceReporter" class="bank4.jdbc.container.ServiceReporter" />
+
+
+</beans>
