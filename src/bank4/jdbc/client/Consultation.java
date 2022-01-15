@@ -11,6 +11,11 @@ public class Consultation extends AbstractOperation {
 	}
 
 	@Override
+	public void execute(Account account) {
+		print(account);
+	}
+
+	@Override
 	public boolean isUrgent() {
 		return false;
 	}

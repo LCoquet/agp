@@ -9,6 +9,8 @@ public abstract class AbstractOperation {
 	public AbstractOperation() {
 	}
 
+	public abstract void execute(Account account);
+	
 	public AbstractOperation(int serviceTime) {
 		this.serviceTime = serviceTime;
 	}

@@ -14,6 +14,16 @@ public class Transfer extends AbstractOperation{
 		this.amount = amount;
 		this.done = false;
 	}
+	
+	@Override
+	public void execute(Account account) {
+		if(amount < account.getBalance()) {
+			account.setBalance(account.getBalance() - amount);
+			targetAccount.setBalance(targetAccount.getBalance() + amount);
+			setDone(true);
+		}
+		print(account);
+	}
 
 	@Override
 	public boolean isUrgent() {

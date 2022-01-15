@@ -14,6 +14,15 @@ public class Withdraw extends AbstractOperation {
 		this.done = false;
 	}
 	
+	@Override
+	public void execute(Account account) {
+		if(amount < account.getBalance()) {
+			account.setBalance(account.getBalance() - amount);
+			setDone(true);			
+		}
+		print(account);
+	}
+	
 	public float getAmount() {
 		return amount;
 	}
