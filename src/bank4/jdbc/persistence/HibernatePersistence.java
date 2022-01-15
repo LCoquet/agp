@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import bank4.jdbc.client.Account;
+import bank4.jdbc.container.SpringContainer;
 
 public class HibernatePersistence {
 	
@@ -19,7 +20,8 @@ public class HibernatePersistence {
 	     
 	     for(int i = 0; i < 20; i++) {
 	    	 random = (float) ((float)  Math.round(Math.random() * 10000.0) / 100.0);
-	    	 Account account = new Account(random);
+	    	 Account account = (Account) SpringContainer.getBean("account");
+	    	 account.setBalance(random);
 	    	 session.persist(account);
 	     }
 	      

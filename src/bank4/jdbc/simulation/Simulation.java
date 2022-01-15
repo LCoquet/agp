@@ -14,6 +14,7 @@ import bank4.jdbc.client.Account;
 import bank4.jdbc.client.Transfer;
 import bank4.jdbc.client.Withdraw;
 import bank4.jdbc.container.SpringContainer;
+import bank4.jdbc.persistence.HibernatePersistence;
 import bank4.jdbc.persistence.JdbcPersistence;
 import bank4.jdbc.persistence.StatisticPersistence;
 
@@ -56,15 +57,11 @@ public class Simulation {
 				operation.setServiceTime(serviceTime);
 				
 				//TODO modify the random account generation to a real account 
-				Account account = (Account) SpringContainer.getBean("account");
-				account.setBalance((float) Math.random()*10);
-				account.setNumber((int) (Math.random()*10));
+				Account account = SimulationUtility.getRandomAccount();
 				client.setAccount(account);
 				if(operation.toString().equals("Operation : Transfer")) {
 					((Transfer) operation).setAmount((float) Math.random()*10);
-					Account targetAccount = (Account) SpringContainer.getBean("account");
-					targetAccount.setBalance((float) Math.random()*10);
-					targetAccount.setNumber((int) (Math.random()*10));
+					Account targetAccount = SimulationUtility.getRandomAccount();
 					((Transfer) operation).setTargetAccount(targetAccount);
 				} else if (operation.toString().equals("Operation : Withdraw")) {
 					((Withdraw) operation).setAmount((float) Math.random()*10);
@@ -102,6 +99,12 @@ public class Simulation {
 				SimulationUtility.printClientDeparture(currentSystemTime);
 				statisticManager.registerServedClient(leavingClient);
 				System.out.println(leavingClient.executeOperation());
+				HibernatePersistence.updateAccountByNumber(leavingClient.getAccount().getNumber(), leavingClient.getAccount().getBalance());
+				
+				if(leavingClient.getOperation().toString().equals("Operation : Transfer")) {
+					Transfer operationTarget = (Transfer) leavingClient.getOperation();
+					HibernatePersistence.updateAccountByNumber(operationTarget.getTargetAccount().getNumber(), operationTarget.getTargetAccount().getBalance());
+				}
 
 				cashier.setServingClient(null);
 
