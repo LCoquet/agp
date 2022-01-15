@@ -2,7 +2,9 @@ package bank4.jdbc.simulation;
 
 import bank4.jdbc.bank.Bank;
 import bank4.jdbc.client.AbstractClient;
+import bank4.jdbc.client.Account;
 import bank4.jdbc.container.SpringContainer;
+import bank4.jdbc.persistence.HibernatePersistence;
 
 /**
  * Provides utility static methods for simulation.
@@ -18,6 +20,11 @@ public class SimulationUtility {
 
 	public static void printServiceTimeTrace(int currentSystemTime, int serviceTime) {
 		System.out.println("Start service for " + serviceTime + " time units.");
+	}
+	
+	public static Account getRandomAccount() {
+		int operationNumber = getRandomNumber(1, 20);
+		return HibernatePersistence.getAccountByNumber(operationNumber);
 	}
 
 	public static void printClientArrival(int currentSystemTime, boolean served) {

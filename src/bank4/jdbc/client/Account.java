@@ -6,13 +6,17 @@ import javax.persistence.Id;
 
 @Entity
 public class Account {
+	
 	@Id
 	@GeneratedValue
 	private int number;
 	private float balance;
 	
-	public Account(int number, float balance) {
-		this.number = number;
+	public Account() {
+		
+	}
+	
+	public Account(float balance) {
 		this.balance = balance;
 	}
 

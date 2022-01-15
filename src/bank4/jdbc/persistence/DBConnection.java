@@ -15,7 +15,6 @@ public class DBConnection {
 			config = new AnnotationConfiguration();
 			config.addAnnotatedClass(Account.class);
 	
-			
 			config.configure("bank4/jdbc/persistence/connection.cfg.xml");
 		}
 		return config;
