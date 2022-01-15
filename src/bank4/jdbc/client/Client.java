@@ -6,8 +6,8 @@ public class Client extends AbstractClient {
 		
 	}
 
-	public Client(int arrivalTime, AbstractOperation operation, int patienceTime) {
-		super(arrivalTime, operation, patienceTime);		
+	public Client(int arrivalTime, AbstractOperation operation, int patienceTime, Account account) {
+		super(arrivalTime, operation, patienceTime, account);		
 	}
 
 	@Override

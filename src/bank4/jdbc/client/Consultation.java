@@ -19,4 +19,12 @@ public class Consultation extends AbstractOperation {
 	public String toString() {
 		return "Operation : Consultation";
 	}
+
+	@Override
+	public String print(Account account) {
+		String res = "Consultation\n";
+		res += "Account number : " + account.getNumber() + "\n";
+		res += "Account balance : " + account.getBalance() + "\n";		
+		return res;
+	}
 }

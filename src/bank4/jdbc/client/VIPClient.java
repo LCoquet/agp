@@ -6,8 +6,8 @@ public class VIPClient extends AbstractClient {
 		
 	}
 
-	public VIPClient(int arrivalTime, AbstractOperation operation, int patienceTime) {
-		super(arrivalTime, operation, patienceTime);
+	public VIPClient(int arrivalTime, AbstractOperation operation, int patienceTime, Account account) {
+		super(arrivalTime, operation, patienceTime, account);
 	}
 
 	@Override

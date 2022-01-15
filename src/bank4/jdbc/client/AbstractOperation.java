@@ -22,4 +22,6 @@ public abstract class AbstractOperation {
 	}
 
 	public abstract boolean isUrgent();
+	
+	public abstract String print(Account account);
 }

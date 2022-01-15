@@ -10,17 +10,19 @@ public abstract class AbstractClient {
 	private int departureTime;
 	private AbstractOperation operation;
 	private int patienceTime;
+	private Account account;
 
 	/**
-	 * 
+	 * Empty constructor
 	 */
 	public AbstractClient() {
 	}
 
-	public AbstractClient(int arrivalTime, AbstractOperation operation, int patienceTime) {
+	public AbstractClient(int arrivalTime, AbstractOperation operation, int patienceTime, Account account) {
 		this.arrivalTime = arrivalTime;
 		this.operation = operation;
 		this.patienceTime = patienceTime;
+		this.account = account;
 	}
 
 	public abstract boolean isPriority();
@@ -73,6 +75,14 @@ public abstract class AbstractClient {
 
 	public void setOperation(AbstractOperation operation) {
 		this.operation = operation;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	public String toString() {
