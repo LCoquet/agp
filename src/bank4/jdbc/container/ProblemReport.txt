@@ -1,12 +1,42 @@
 Dear boss, today, there is another client who has left without being served !
 Here is some information about the upset client : 
-Arrival time : 770
-Departure time : 777
+Arrival time : 95
+Departure time : 102
 -----------------------------------------------------------------------------
 Dear boss, today, there is another client who has left without being served !
 Here is some information about the upset client : 
-Arrival time : 135
-Departure time : 142
+Arrival time : 310
+Departure time : 317
+-----------------------------------------------------------------------------
+Dear boss, today, there is another client who has left without being served !
+Here is some information about the upset client : 
+Arrival time : 750
+Departure time : 757
+-----------------------------------------------------------------------------
+Dear boss, today, there is another client who has left without being served !
+Here is some information about the upset client : 
+Arrival time : 905
+Departure time : 912
+-----------------------------------------------------------------------------
+Dear boss, today, there is another client who has left without being served !
+Here is some information about the upset client : 
+Arrival time : 395
+Departure time : 402
+-----------------------------------------------------------------------------
+Dear boss, today, there is another client who has left without being served !
+Here is some information about the upset client : 
+Arrival time : 475
+Departure time : 482
+-----------------------------------------------------------------------------
+Dear boss, today, there is another client who has left without being served !
+Here is some information about the upset client : 
+Arrival time : 940
+Departure time : 947
+-----------------------------------------------------------------------------
+Dear boss, today, there is another client who has left without being served !
+Here is some information about the upset client : 
+Arrival time : 120
+Departure time : 127
 -----------------------------------------------------------------------------
 Dear boss, today, there is another client who has left without being served !
 Here is some information about the upset client : 
@@ -15,26 +45,21 @@ Departure time : 272
 -----------------------------------------------------------------------------
 Dear boss, today, there is another client who has left without being served !
 Here is some information about the upset client : 
-Arrival time : 295
-Departure time : 302
+Arrival time : 550
+Departure time : 557
 -----------------------------------------------------------------------------
 Dear boss, today, there is another client who has left without being served !
 Here is some information about the upset client : 
-Arrival time : 385
-Departure time : 392
+Arrival time : 635
+Departure time : 642
 -----------------------------------------------------------------------------
 Dear boss, today, there is another client who has left without being served !
 Here is some information about the upset client : 
-Arrival time : 560
-Departure time : 567
+Arrival time : 860
+Departure time : 867
 -----------------------------------------------------------------------------
 Dear boss, today, there is another client who has left without being served !
 Here is some information about the upset client : 
-Arrival time : 740
-Departure time : 747
------------------------------------------------------------------------------
-Dear boss, today, there is another client who has left without being served !
-Here is some information about the upset client : 
-Arrival time : 975
-Departure time : 982
+Arrival time : 915
+Departure time : 922
 -----------------------------------------------------------------------------

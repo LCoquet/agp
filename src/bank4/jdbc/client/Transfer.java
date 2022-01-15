@@ -16,14 +16,14 @@ public class Transfer extends AbstractOperation{
 	}
 	
 	@Override
-	public void execute(Account account) {
+	public String execute(Account account) {
 		System.out.println("Execution en cours de transfert.\n" + "value : " + amount + "\n");
 		if(amount < account.getBalance()) {
 			account.setBalance(account.getBalance() - amount);
 			targetAccount.setBalance(targetAccount.getBalance() + amount);
 			setDone(true);
 		}
-		System.out.println(print(account));
+		return print(account);
 	}
 
 	@Override

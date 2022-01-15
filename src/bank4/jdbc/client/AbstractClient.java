@@ -25,8 +25,8 @@ public abstract class AbstractClient {
 		this.account = account;
 	}
 
-	public void executeOperation() {
-		operation.execute(account);
+	public String executeOperation() {
+		return operation.execute(account);
 	}
 	
 	public abstract boolean isPriority();

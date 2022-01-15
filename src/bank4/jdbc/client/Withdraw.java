@@ -15,13 +15,13 @@ public class Withdraw extends AbstractOperation {
 	}
 	
 	@Override
-	public void execute(Account account) {
+	public String execute(Account account) {
 		System.out.println("Execution en cours de retrait.\n");
 		if(amount < account.getBalance()) {
 			account.setBalance(account.getBalance() - amount);
 			setDone(true);			
 		}
-		System.out.println(print(account));
+		return print(account);
 	}
 	
 	public float getAmount() {

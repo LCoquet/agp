@@ -79,9 +79,11 @@
 	
 	<aop:config>
 		<aop:pointcut id="operationPointcut"
-			expression="execution(* bank4.jdbc.client.AbstractOperation.print(..))" />
+			expression="execution(* bank4.jdbc.client.AbstractClient.executeOperation(..))" />
 		<aop:aspect id="operationReporterAspect" ref="operationReporter">
 			<aop:before method="test" pointcut-ref="operationPointcut" />
+			<aop:after-returning method="treatedOperationEntry"
+				returning="result" pointcut-ref="operationPointcut" />
 		</aop:aspect>
 	</aop:config>
 

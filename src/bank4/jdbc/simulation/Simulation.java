@@ -101,7 +101,7 @@ public class Simulation {
 				leavingClient.setDepartureTime(currentSystemTime);
 				SimulationUtility.printClientDeparture(currentSystemTime);
 				statisticManager.registerServedClient(leavingClient);
-				leavingClient.executeOperation();
+				System.out.println(leavingClient.executeOperation());
 
 				cashier.setServingClient(null);
 
