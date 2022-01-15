@@ -10,6 +10,10 @@ import bank4.jdbc.bank.Queue;
 import bank4.jdbc.chart.PieGraphicalResult;
 import bank4.jdbc.client.AbstractClient;
 import bank4.jdbc.client.AbstractOperation;
+import bank4.jdbc.client.Account;
+import bank4.jdbc.client.Transfer;
+import bank4.jdbc.client.Withdraw;
+import bank4.jdbc.container.SpringContainer;
 import bank4.jdbc.persistence.JdbcPersistence;
 import bank4.jdbc.persistence.StatisticPersistence;
 
@@ -50,6 +54,22 @@ public class Simulation {
 				client.setPatienceTime(clientPatienceTime);
 				AbstractOperation operation = client.getOperation();
 				operation.setServiceTime(serviceTime);
+				
+				//TODO modify the random account generation to a real account 
+				Account account = (Account) SpringContainer.getBean("account");
+				account.setBalance((float) Math.random()*10);
+				account.setNumber((int) (Math.random()*10));
+				client.setAccount(account);
+				if(operation.toString().equals("Operation : Transfer")) {
+					((Transfer) operation).setAmount((float) Math.random()*10);
+					Account targetAccount = (Account) SpringContainer.getBean("account");
+					targetAccount.setBalance((float) Math.random()*10);
+					targetAccount.setNumber((int) (Math.random()*10));
+					((Transfer) operation).setTargetAccount(targetAccount);
+				} else if (operation.toString().equals("Operation : Withdraw")) {
+					((Withdraw) operation).setAmount((float) Math.random()*10);
+				}
+				//end of TODO
 
 				Cashier freeCashier = bank.getFreeCashier();
 				if (freeCashier == null) {
@@ -81,6 +101,7 @@ public class Simulation {
 				leavingClient.setDepartureTime(currentSystemTime);
 				SimulationUtility.printClientDeparture(currentSystemTime);
 				statisticManager.registerServedClient(leavingClient);
+				leavingClient.executeOperation();
 
 				cashier.setServingClient(null);
 

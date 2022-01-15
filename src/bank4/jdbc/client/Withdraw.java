@@ -16,11 +16,12 @@ public class Withdraw extends AbstractOperation {
 	
 	@Override
 	public void execute(Account account) {
+		System.out.println("Execution en cours de retrait.\n");
 		if(amount < account.getBalance()) {
 			account.setBalance(account.getBalance() - amount);
 			setDone(true);			
 		}
-		print(account);
+		System.out.println(print(account));
 	}
 	
 	public float getAmount() {
@@ -52,8 +53,8 @@ public class Withdraw extends AbstractOperation {
 	@Override
 	public String print(Account account) {
 		String res = "Withdraw \n";
-		res += isDone() ? "Withdrawed " : "Could not withdraw "
-				+ amount + " from account " + account.getNumber() + "\n";
+		res += isDone() ? "Withdrawed " : "Could not withdraw ";
+		res += amount + " from account " + account.getNumber() + "\n";
 		return res;
 	}
 

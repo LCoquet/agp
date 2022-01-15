@@ -12,7 +12,8 @@ public class Consultation extends AbstractOperation {
 
 	@Override
 	public void execute(Account account) {
-		print(account);
+		System.out.println("Execution en cours de consultation.\n");
+		System.out.println(print(account));
 	}
 
 	@Override

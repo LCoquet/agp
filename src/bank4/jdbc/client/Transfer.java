@@ -17,12 +17,13 @@ public class Transfer extends AbstractOperation{
 	
 	@Override
 	public void execute(Account account) {
+		System.out.println("Execution en cours de transfert.\n" + "value : " + amount + "\n");
 		if(amount < account.getBalance()) {
 			account.setBalance(account.getBalance() - amount);
 			targetAccount.setBalance(targetAccount.getBalance() + amount);
 			setDone(true);
 		}
-		print(account);
+		System.out.println(print(account));
 	}
 
 	@Override
@@ -63,7 +64,8 @@ public class Transfer extends AbstractOperation{
 	public String print(Account account) {
 		String res = "Transfer\n";
 		res += "From account number " + account.getNumber() + " to account number " + targetAccount.getNumber() + "\n";
-		res += isDone() ? "Amount transfered : " : "Could not transfer : " + amount + "\n";
+		res += isDone() ? "Amount transfered : " : "Could not transfer : ";
+		res += amount + "\n";
 		return res;
 	}
 

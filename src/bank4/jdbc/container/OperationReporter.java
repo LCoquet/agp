@@ -5,12 +5,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.JoinPoint.StaticPart;
 
 public class OperationReporter {
 
-	private static final String OPERATION_FILE = "src/bank3/spring/container/Operations.txt";
+	private static final String OPERATION_FILE = "src/bank4/jdbc/container/Operations.txt";
 	
-	public void treatedOperationEntry(JoinPoint joinPoint, Object res) {
+	public void test(JoinPoint joinPoint) {
+		System.out.println("Hello i am here.");
+	}
+	
+	public void treatedOperationEntry(StaticPart staticPart, Object result) {
+		String name = staticPart.getSignature().toShortString();
+		System.out.println(name + " returning: [" + result + "]");
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(OPERATION_FILE, true));
@@ -18,7 +25,7 @@ public class OperationReporter {
 			writer.newLine();
 			writer.write("Here is some information about the operation : ");
 			writer.newLine();
-			writer.write((String) res);
+			writer.write((String) result);
 			writer.newLine();
 			writer.write("-----------------------------------------------------------------------------");
 			writer.newLine();
