@@ -1,4 +1,4 @@
-package bank4.jdbc.simulation;
+package bank4.jdbc.chart;
 
 import java.awt.Dimension;
 
