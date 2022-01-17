@@ -16,7 +16,7 @@ public class Withdraw extends AbstractOperation {
 	
 	@Override
 	public String execute(Account account) {
-		if(amount < account.getBalance()) {
+		if(amount < account.getBalance() && amount >= 0) {
 			account.setBalance(account.getBalance() - amount);
 			setDone(true);			
 		}
