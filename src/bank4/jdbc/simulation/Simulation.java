@@ -13,7 +13,6 @@ import bank4.jdbc.client.AbstractOperation;
 import bank4.jdbc.client.Account;
 import bank4.jdbc.client.Transfer;
 import bank4.jdbc.client.Withdraw;
-import bank4.jdbc.container.SpringContainer;
 import bank4.jdbc.persistence.HibernatePersistence;
 import bank4.jdbc.persistence.JdbcPersistence;
 import bank4.jdbc.persistence.StatisticPersistence;
@@ -25,6 +24,9 @@ public class Simulation {
 	private Bank bank;
 	private StatisticManager statisticManager;
 	private SimulationEntry simulationEntry;
+	private int consultationAmount = 4;
+	private int withdrawAmount = 2;
+	private int transferAmount = 9;
 
 	public Simulation() {
 
@@ -63,8 +65,12 @@ public class Simulation {
 					((Transfer) operation).setAmount((float) Math.random()*10);
 					Account targetAccount = SimulationUtility.getRandomAccount();
 					((Transfer) operation).setTargetAccount(targetAccount);
+					incrementTransferAmount();
 				} else if (operation.toString().equals("Operation : Withdraw")) {
 					((Withdraw) operation).setAmount((float) Math.random()*10);
+					incrementWithdrawAmount();
+				} else {
+					incrementConsultationAmount();
 				}
 				//end of TODO
 
@@ -206,6 +212,42 @@ public class Simulation {
 	private int persistSimulationResult() {
 		StatisticPersistence persistenceProxy = new JdbcPersistence();
 		return persistenceProxy.persist(simulationEntry, statisticManager);
+	}
+
+	public int getConsultationAmount() {
+		return consultationAmount;
+	}
+
+	public void setConsultationAmount(int consultationAmount) {
+		this.consultationAmount = consultationAmount;
+	}
+
+	public int getWithdrawAmount() {
+		return withdrawAmount;
+	}
+
+	public void setWithdrawAmount(int withdrawAmount) {
+		this.withdrawAmount = withdrawAmount;
+	}
+
+	public int getTransferAmount() {
+		return transferAmount;
+	}
+
+	public void setTransferAmount(int transferAmount) {
+		this.transferAmount = transferAmount;
+	}
+
+	public void incrementConsultationAmount() {
+		consultationAmount ++;
+	}
+	
+	public void incrementWithdrawAmount() {
+		withdrawAmount ++;
+	}
+	
+	public void incrementTransferAmount() {
+		transferAmount ++;
 	}
 
 }
