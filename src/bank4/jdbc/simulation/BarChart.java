@@ -35,7 +35,7 @@ public class BarChart extends ApplicationFrame {
 
 	private CategoryDataset createDataset() {
 
-		String operations = "Operations";
+		String operations = "Operations amount";
 
 		String consultation = "Consultation";
 		String withdraw = "Withdraw";
@@ -53,7 +53,7 @@ public class BarChart extends ApplicationFrame {
 
 	private JFreeChart createChart(CategoryDataset dataset) {
 
-		JFreeChart chart = ChartFactory.createBarChart("Bar Chart Demo", "Category", "Value", dataset,
+		JFreeChart chart = ChartFactory.createBarChart("Operations Bar Chart", "Operations", "Amount", dataset,
 				PlotOrientation.VERTICAL, true, true, false);
 
 		return chart;
