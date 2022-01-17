@@ -6,6 +6,8 @@ import bank4.jdbc.container.SpringContainer;
 import bank4.jdbc.persistence.DataInit;
 import bank4.jdbc.persistence.HibernatePersistence;
 
+import bank4.jdbc.chart.BarChart;
+
 public class TestSimulation {
 	
 	public static void main(String[] args) {
