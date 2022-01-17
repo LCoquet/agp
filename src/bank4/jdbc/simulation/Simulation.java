@@ -24,9 +24,7 @@ public class Simulation {
 	private Bank bank;
 	private StatisticManager statisticManager;
 	private SimulationEntry simulationEntry;
-	private int consultationAmount = 4;
-	private int withdrawAmount = 2;
-	private int transferAmount = 9;
+	private int cptcashierOccupation = 0;
 
 	public Simulation() {
 
@@ -40,6 +38,7 @@ public class Simulation {
 	public void simulate() {
 		int simulationDuration = simulationEntry.getSimulationDuration();
 		int clientArrivalInterval = simulationEntry.getClientArrivalInterval();
+		statisticManager.initTable(simulationDuration);
 		for (int currentSystemTime = 0; currentSystemTime <= simulationDuration; currentSystemTime++) {
 
 			statisticManager.simulationDurationRecord();
@@ -58,21 +57,19 @@ public class Simulation {
 				AbstractOperation operation = client.getOperation();
 				operation.setServiceTime(serviceTime);
 				
-				//TODO modify the random account generation to a real account 
 				Account account = SimulationUtility.getRandomAccount();
 				client.setAccount(account);
 				if(operation.toString().equals("Operation : Transfer")) {
 					((Transfer) operation).setAmount((float) Math.random()*10);
 					Account targetAccount = SimulationUtility.getRandomAccount();
 					((Transfer) operation).setTargetAccount(targetAccount);
-					incrementTransferAmount();
+					statisticManager.incrementTransferAmount();
 				} else if (operation.toString().equals("Operation : Withdraw")) {
 					((Withdraw) operation).setAmount((float) Math.random()*10);
-					incrementWithdrawAmount();
+					statisticManager.incrementWithdrawAmount();
 				} else {
-					incrementConsultationAmount();
+					statisticManager.incrementConsultationAmount();
 				}
-				//end of TODO
 
 				Cashier freeCashier = bank.getFreeCashier();
 				if (freeCashier == null) {
@@ -84,6 +81,14 @@ public class Simulation {
 					serveClient(currentSystemTime, freeCashier, client);
 				}
 			}
+			cptcashierOccupation = 0;
+			for(int i = 0; i < simulationEntry.getCashierCount(); i++) {
+				if(!bank.getCashiers().get(i).isFree()) {
+					cptcashierOccupation++;
+				}
+			}
+			cptcashierOccupation/=simulationEntry.getCashierCount();
+			statisticManager.addCashierOccupation(cptcashierOccupation, currentSystemTime);
 		}
 	}
 
@@ -169,6 +174,8 @@ public class Simulation {
 				+ statisticManager.calculateAverageCashierOccupationRate(simulationEntry.getCashierCount()) + " % \n");
 		results.append("Non-Served client count : " + statisticManager.nonServedClientCount() + "\n");
 		results.append("Client satisfaction rate : " + statisticManager.calculateClientSatisfactionRate() + " %");
+		statisticManager.barChart();
+		statisticManager.lineChart();
 		return results.toString();
 	}
 
@@ -212,42 +219,6 @@ public class Simulation {
 	private int persistSimulationResult() {
 		StatisticPersistence persistenceProxy = new JdbcPersistence();
 		return persistenceProxy.persist(simulationEntry, statisticManager);
-	}
-
-	public int getConsultationAmount() {
-		return consultationAmount;
-	}
-
-	public void setConsultationAmount(int consultationAmount) {
-		this.consultationAmount = consultationAmount;
-	}
-
-	public int getWithdrawAmount() {
-		return withdrawAmount;
-	}
-
-	public void setWithdrawAmount(int withdrawAmount) {
-		this.withdrawAmount = withdrawAmount;
-	}
-
-	public int getTransferAmount() {
-		return transferAmount;
-	}
-
-	public void setTransferAmount(int transferAmount) {
-		this.transferAmount = transferAmount;
-	}
-
-	public void incrementConsultationAmount() {
-		consultationAmount ++;
-	}
-	
-	public void incrementWithdrawAmount() {
-		withdrawAmount ++;
-	}
-	
-	public void incrementTransferAmount() {
-		transferAmount ++;
 	}
 
 }

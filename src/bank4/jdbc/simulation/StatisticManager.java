@@ -2,6 +2,9 @@ package bank4.jdbc.simulation;
 
 import java.util.ArrayList;
 
+import org.jfree.ui.RefineryUtilities;
+import bank4.jdbc.chart.LineChart;
+import bank4.jdbc.chart.BarChart;
 import bank4.jdbc.client.AbstractClient;
 
 /**
@@ -11,7 +14,11 @@ import bank4.jdbc.client.AbstractClient;
 public class StatisticManager {
 	private ArrayList<AbstractClient> servedClients = new ArrayList<AbstractClient>();
 	private ArrayList<AbstractClient> nonServedClients = new ArrayList<AbstractClient>();
-
+	private int consultationAmount;
+	private int withdrawAmount;
+	private int transferAmount;
+	private double cashierOccupation[];
+	
 	/**
 	 * Effective simulation duration.
 	 */
@@ -23,6 +30,10 @@ public class StatisticManager {
 	 */
 	private int occupiedCashier = 0;
 
+	public void initTable(int totalSimulDuration){
+		this.cashierOccupation = new double[totalSimulDuration+1];
+	}
+	
 	public void registerServedClient(AbstractClient client) {
 		servedClients.add(client);
 	}
@@ -129,5 +140,34 @@ public class StatisticManager {
 	public void setOccupiedCashier(int occupiedCashier) {
 		this.occupiedCashier = occupiedCashier;
 	}
+	
+	public void incrementConsultationAmount() {
+		consultationAmount ++;
+	}
+	
+	public void incrementWithdrawAmount() {
+		withdrawAmount ++;
+	}
+	
+	public void incrementTransferAmount() {
+		transferAmount ++;
+	}
 
+	public void barChart() {
+		BarChart chart = new BarChart("Bar Chart", consultationAmount, withdrawAmount, transferAmount);
+		chart.pack();
+		RefineryUtilities.centerFrameOnScreen(chart);
+		chart.setVisible(true);
+	}
+	
+	public void addCashierOccupation(int cpt, int currentSystemTime) {
+		cashierOccupation[currentSystemTime] = cpt;
+	}
+	
+	public void lineChart() {
+		LineChart lineChart = new LineChart("Cashier Occupation", cashierOccupation);
+		lineChart.pack();
+		RefineryUtilities.centerFrameOnScreen(lineChart);
+		lineChart.setVisible(true);
+	}
 }
